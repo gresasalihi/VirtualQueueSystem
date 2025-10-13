@@ -1,0 +1,42 @@
+@model List<VirtualQueueSystem.Models.Order>
+
+@{
+    ViewData["Title"] = "Manage Orders";
+}
+
+<h2>Kitchen Order Queue</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Queue Number</th>
+            <th>Items</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.OrderId</td>
+                <td>@order.QueueNumber</td>
+                <td>@order.Items</td>
+                <td class="order-status">@order.Status</td>
+                <td>
+                    <form method="post" action="@Url.Action("UpdateOrderStatus", "Order")">
+                        <input type="hidden" name="orderId" value="@order.OrderId" />
+                        <select name="status">
+                            <option value="Pending" selected>Pending</option>
+                            <option value="Preparing">Preparing</option>
+                            <option value="Ready">Ready</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

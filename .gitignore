@@ -1,0 +1,18 @@
+# OS files 
+Thumbs.db 
+.DS_Store 
+# IDE folders 
+.vscode/ 
+.idea/ 
+*.suo 
+*.user 
+*.userosscache 
+*.sln 
+# build / temp folders 
+node_modules/ 
+dist/ 
+build/ 
+__pycache__/ 
+*.pyc 
+# logs 
+*.log 

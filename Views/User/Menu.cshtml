@@ -1,0 +1,114 @@
+@model List<VirtualQueueSystem.Models.MenuItem>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Menu";
+}
+
+<div class="menu-container">
+    <h2>Our Menu</h2>
+
+    <!-- ✅ Category Buttons -->
+    <div class="menu-categories">
+        <button class="category-btn active" data-category="all">All</button>
+        <button class="category-btn" data-category="Breakfast">Breakfast</button>
+        <button class="category-btn" data-category="Lunch">Lunch</button>
+        <button class="category-btn" data-category="Dinner">Dinner</button>
+        <button class="category-btn" data-category="Snacks">Snacks</button>
+    </div>
+
+    <!-- ✅ Grouped Menu Sections -->
+    @foreach (var category in Model.Select(m => m.Category).Distinct())
+    {
+        <h3 class="category-title">@category</h3>
+        <div class="menu-grid">
+            @foreach (var item in Model.Where(m => m.Category == category))
+            {
+                <div class="menu-card" data-category="@item.Category">
+                    <img src="@item.ImageUrl" alt="@item.Name" class="menu-image">
+                    <h3 class="menu-title">@item.Name</h3>
+                    <span class="menu-price">$@item.Price.ToString("0.00")</span>
+                    <button class="add-to-cart" data-id="@item.Id" data-name="@item.Name" data-price="@item.Price">
+                        ➕ Add to Cart
+                    </button>
+                </div>
+            }
+        </div>
+    }
+
+    <!-- ✅ Cart Summary -->
+    <div class="cart-summary">
+        <h3>🛒 Your Cart</h3>
+        <ul id="cart-items"></ul>
+        <p>Total: <span id="total-price">$0.00</span></p>
+        <button id="checkout-btn" class="btn btn-primary btn-full">CHECKOUT</button>
+    </div>
+</div>
+
+<!-- ✅ JavaScript for Cart Functionality -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    let cart = [];
+    let totalPrice = 0;
+
+    function updateCart() {
+        let cartList = document.getElementById("cart-items");
+        let totalElement = document.getElementById("total-price");
+        cartList.innerHTML = "";
+        totalPrice = 0;
+
+        cart.forEach(item => {
+            let listItem = document.createElement("li");
+            listItem.textContent = `${item.name} - $${item.price.toFixed(2)}`;
+            cartList.appendChild(listItem);
+            totalPrice += item.price;
+        });
+
+        totalElement.textContent = `$${totalPrice.toFixed(2)}`;
+    }
+
+    document.querySelectorAll(".add-to-cart").forEach(button => {
+        button.addEventListener("click", function() {
+            let itemId = this.getAttribute("data-id");
+            let itemName = this.getAttribute("data-name");
+            let itemPrice = parseFloat(this.getAttribute("data-price"));
+
+            // ✅ Prevent duplicate items in cart
+            let existingItem = cart.find(item => item.id === itemId);
+            if (!existingItem) {
+                cart.push({ id: itemId, name: itemName, price: itemPrice });
+                updateCart();
+            } else {
+                alert("⚠️ This item is already in your cart!");
+            }
+        });
+    });
+
+    document.getElementById("checkout-btn").addEventListener("click", function() {
+        if (cart.length === 0) {
+            // ✅ Prevents duplicate alert issue
+            if (!document.querySelector(".empty-cart-alert")) {
+                let alertMessage = document.createElement("div");
+                alertMessage.className = "empty-cart-alert";
+                alertMessage.style.display = "none";
+                alertMessage.textContent = "⚠️ Your cart is empty!";
+                document.body.appendChild(alertMessage);
+                alert(alertMessage.textContent);
+            }
+        } else {
+            let summary = "✅ Your order summary:\n" + cart.map(item => `${item.name} - $${item.price.toFixed(2)}`).join("\n");
+            summary += `\n\n💰 Total: $${totalPrice.toFixed(2)}`;
+            alert(summary);
+
+            // ✅ Show "Order Successfully Placed!" as an alert
+            setTimeout(() => {
+                alert("✅ Order Successfully Placed!");
+            }, 500);
+
+            // ✅ Clear cart after order
+            cart = [];
+            updateCart();
+        }
+    });
+});
+</script>

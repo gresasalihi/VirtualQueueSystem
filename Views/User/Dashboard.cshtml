@@ -1,0 +1,27 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "User Dashboard";
+}
+
+<div class="dashboard-container">
+    <h2>Welcome, <span class="username">@(User.Identity?.Name ?? "Guest")</span> ☕</h2>
+    <p>What would you like to do today?</p>
+
+    <div class="dashboard-buttons">
+        <!-- View Menu -->
+        <a href="@Url.Action("Menu", "User")" class="dashboard-btn">
+            <i class="fas fa-utensils"></i>
+            View Menu
+        </a>
+
+    <a href="@Url.Action("ViewQueue", "User")" class="dashboard-btn">
+        <i class="fas fa-list"></i> View Queue
+    </a>
+
+        <!-- Optional: Give Feedback -->
+        <a href="@Url.Action("Feedback", "User")" class="dashboard-btn">
+            <i class="fas fa-star"></i>
+            Give Feedback
+        </a>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["HideHeader"] = true; /* 🔥 Hide header for Register page */
+}
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="form-container">
+        <h2>Register</h2>
+        <form method="post" asp-action="Register">
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger">@ViewBag.Error</div>
+            }
+
+            <div class="input-group">
+                <i class="bi bi-person"></i>
+                <input type="text" name="Username" placeholder="Enter Username" required>
+            </div>
+            <div class="input-group">
+                <i class="bi bi-lock"></i>
+                <input type="password" name="Password" placeholder="Enter Password" required>
+            </div>
+            
+            <!-- 🔥 Hidden Role Field -->
+            <div class="role-container">
+                <input type="hidden" name="Role" value="User">
+            </div>
+
+            <button type="submit" class="btn btn-register">REGISTER</button>
+        </form>
+    </div>
+</div>

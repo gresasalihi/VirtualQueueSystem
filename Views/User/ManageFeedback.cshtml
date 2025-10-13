@@ -1,0 +1,38 @@
+@model List<VirtualQueueSystem.Models.Feedback>
+
+@{
+    ViewData["Title"] = "Manage Feedback";
+}
+
+<div class="admin-container">
+    <h2>All User Feedback</h2>
+
+    @if (Model != null && Model.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Comment</th>
+                    <th>Rating</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var feedback in Model)
+                {
+                    <tr>
+                        <td>@(feedback.User?.Username ?? "Unknown")</td>
+                        <td>@feedback.Comment</td>
+                        <td>@feedback.Rating/5</td>
+                        <td>@feedback.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="alert alert-warning">No feedback submitted yet.</p>
+    }
+</div>

@@ -1,0 +1,63 @@
+@model List<VirtualQueueSystem.Models.Feedback>
+
+@{
+    ViewData["Title"] = "User Feedback";
+}
+
+<div class="feedback-page-container">
+    <!-- ✅ Feedback Form Container -->
+    <div class="feedback-container">
+        <h2 class="feedback-title">We Value Your Feedback</h2>
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+        }
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+        }
+
+        <form asp-action="SubmitFeedback" method="post">
+            <div class="input-group">
+                <label for="rating">Rating (1-5):</label>
+                <input type="number" id="rating" name="Rating" min="1" max="5" required>
+            </div>
+            <div class="input-group">
+                <label for="comment">Your Feedback:</label>
+                <textarea id="comment" name="Comment" rows="6" required></textarea>
+            </div>
+            <button type="submit" class="btn-submit">Submit Feedback</button>
+        </form>
+    </div>
+
+    <!-- ✅ Hides the feedback list if it's empty -->
+    @if (Model.Any())
+    {
+        <div class="feedback-list-container">
+            <h3 class="feedback-list-title">Previous Feedback</h3>
+
+            <table class="feedback-table">
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Rating</th>
+                        <th>Comment</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var feedback in Model)
+                    {
+                        <tr>
+                            <td>@(feedback.User?.Username ?? "Anonymous")</td>
+                            <td>@feedback.Rating</td>
+                            <td>@feedback.Comment</td>
+                            <td>@feedback.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

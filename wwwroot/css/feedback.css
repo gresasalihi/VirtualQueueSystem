@@ -1,0 +1,184 @@
+/* ✅ Fix header height issue */
+.full-header {
+    height: 80px;  /* Ensure enough space */
+    display: flex;
+    align-items: center;  /* Center align items */
+    padding: 10px 20px;
+}
+
+/* ✅ Apply only to feedback page */
+.feedback-page-container {
+    background: url('/images/background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh; /* ✅ Ensures full height but allows scrolling */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* ✅ Aligns content at the top */
+    margin: 0;
+    padding-top: 70px;
+    padding-bottom: 50px;
+    height: 100vh;
+    overflow-y: auto; /* ✅ Enables scrolling */
+    -ms-overflow-style: none;  /* ✅ Hides scrollbar in IE and Edge */
+}
+
+/* ✅ Hide scrollbar in WebKit browsers (Chrome, Safari, Edge) */
+.feedback-page-container::-webkit-scrollbar {
+    display: none; /* ✅ Hides scrollbar in Chrome, Safari, Edge */
+}
+
+/* ✅ Feedback Form Card */
+.feedback-page-container .feedback-container {
+    background: rgba(255, 255, 255, 0.97);
+    border-radius: 25px;
+    padding: 50px;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2);
+    max-width: 2000px; /* ✅ Proper width */
+    width: 1050px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px; /* ✅ Ensures spacing below the form */
+}
+
+/* ✅ Title Styling */
+.feedback-page-container .feedback-title {
+    font-size: 30px;
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 30px; /* ✅ Adds spacing below the title */
+}
+
+/* ✅ Ensure input fields are centered */
+.feedback-page-container .input-group {
+    display: flex;
+    flex-direction: column; /* Stack label & input on top of each other */
+    align-items: center; /* Center items horizontally */
+    gap: 10px; /* Space between label and input */
+    width: 100%;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* ✅ Adjust label alignment */
+.feedback-page-container .input-group label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    text-align: center; /* Center label text */
+    width: 200px;
+}
+
+
+/* ✅ Style for Normal Input Fields */
+.feedback-page-container .input-group input {
+    width: 500px; /* ✅ Normal width */
+    height: 40px; /* ✅ Normal height */
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* ✅ Style for Textarea (Same Position as Rating Input) */
+.feedback-page-container .input-group textarea {
+    width: 500px; /* ✅ Same width as input field */
+    height: 40px; /* ✅ Normal height (matches input field) */
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    resize: none; /* ✅ Prevents resizing to maintain alignment */
+}
+
+/* ✅ Make it Mobile-Friendly */
+@media (max-width: 768px) {
+    .feedback-page-container .input-group {
+        flex-direction: column; /* ✅ Stack label & input on small screens */
+        align-items: center;
+    }
+
+    .feedback-page-container .input-group input,
+    .feedback-page-container .input-group textarea {
+        width: 100%; /* ✅ Full width on mobile */
+    }
+}
+
+/* ✅ Submit Button */
+.feedback-page-container .btn-submit {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 18px;
+    background: linear-gradient(135deg, #ff6600, #ff3300);
+    color: white;
+}
+
+.feedback-page-container .btn-submit:hover {
+    transform: scale(1.05);
+    color: #222;
+    opacity: 0.9;
+}
+
+/* ✅ Feedback List Section */
+.feedback-page-container .feedback-list-container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+    max-width: 2000px;
+    width: 1050px;
+    margin-top: 50px; /* ✅ Ensures spacing below the form */
+}
+
+/* ✅ Previous Feedback Title */
+.feedback-page-container .feedback-list-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 15px;
+}
+
+/* ✅ Feedback Table */
+.feedback-page-container .feedback-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.feedback-page-container .feedback-table th,
+.feedback-page-container .feedback-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.feedback-page-container .feedback-table th {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+}
+
+.feedback-page-container .feedback-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* ✅ Responsive Design */
+@media (max-width: 768px) {
+    .feedback-page-container .feedback-container {
+        max-width: 95%;
+        padding: 40px;
+    }
+
+    .feedback-page-container .feedback-list-container {
+        max-width: 95%;
+    }
+}

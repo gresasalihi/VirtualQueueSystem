@@ -1,0 +1,91 @@
+﻿@{
+    var hideHeader = ViewData["HideHeader"] as bool? ?? false;
+    var pageTitle = ViewData["Title"] as string;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Virtual Queue Café</title>
+
+    <!-- ✅ Bootstrap for Styling -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <!-- ✅ Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+
+    <!-- ✅ Custom CSS (Global) -->
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/menu.css" asp-append-version="true" />
+
+    @* ✅ Load Feedback CSS only on the Feedback page *@
+    @if (!string.IsNullOrEmpty(pageTitle) && pageTitle == "User Feedback")
+    {
+        <link rel="stylesheet" href="~/css/feedback.css" asp-append-version="true" />
+    }
+</head>
+
+<body>
+
+    @if (!hideHeader) 
+    {
+        <header class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="@Url.Action("Dashboard", "User")">
+    <i class="fas fa-coffee"></i> Virtual Queue Café
+</a>
+
+
+                <!-- ✅ Mobile Menu Toggle -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Menu", "User")">
+                                <i class="fas fa-utensils"></i> Menu
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("ViewQueue", "User")">
+                                <i class="fas fa-list"></i> View Queue
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Feedback", "User")">
+                                <i class="fas fa-comment-dots"></i> Feedback
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-danger" href="http://localhost:5000/">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+    }
+
+    <!-- ✅ Push Content Down to Avoid Overlapping with Fixed Header -->
+    <main class="content mt-5">
+        @RenderBody()
+    </main>
+
+    <!-- ✅ Load JavaScript at Bottom for Performance -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- ✅ Load SignalR -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.11/signalr.min.js"></script>
+
+    <!-- ✅ Load JavaScript Files -->
+    <script src="~/js/main.js" asp-append-version="true"></script>
+    <script src="~/js/menu.js" asp-append-version="true" defer></script>
+    <script src="~/js/queue.js" asp-append-version="true" defer></script>
+</body>
+</html>

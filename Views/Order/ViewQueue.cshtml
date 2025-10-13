@@ -1,0 +1,40 @@
+@model List<VirtualQueueSystem.Models.Order>
+
+@{
+    ViewData["Title"] = "Your Order Queue";
+}
+
+<div class="queue-container">
+    <h2>Your Order Queue</h2>
+
+    @if (Model.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Queue Number</th>
+                    <th>Status</th>
+                    <th>Time Placed</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model)
+                {
+                    <tr>
+                        <td>@order.OrderId</td>
+                        <td>@order.QueueNumber</td>
+                        <td class="order-status">@order.Status</td>
+                        <td>@order.CreatedAt.ToString("hh:mm tt")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>You have no active orders.</p>
+    }
+</div>
+
+<script src="~/js/order-tracker.js"></script>
