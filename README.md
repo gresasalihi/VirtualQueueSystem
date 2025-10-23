@@ -33,9 +33,9 @@ Built with **ASP.NET Core MVC**, **Entity Framework**, and **SQL Server**, it en
 3. Configure your SQL Server connection string in appsettings.json
 
 4. Run database migrations:
-  ```bash
+   ```bash
    dotnet ef database update
-  ```
+   ```
 
 5. Launch the project:
    ```bash
